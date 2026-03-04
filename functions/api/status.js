@@ -2,7 +2,7 @@
 // Controlla lo stato Discord via Lanyard, tenendo conto del blocco admin.
 
 const DISCORD_USER_ID = "719637230980825090";
-const NOMI_AUTORIZZATI = ["marco", "giulia", "luca", "sara", "andrea", "elena"];
+const NOMI_AUTORIZZATI = ["Alfair", "Pap", "AyXr", "Ombraqxz", "nomz", "Alfaid"];
 
 export async function onRequestGet(context) {
   const { request, env } = context;
