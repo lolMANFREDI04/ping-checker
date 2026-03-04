@@ -1,0 +1,10 @@
+name = "ping-checker"
+compatibility_date = "2024-01-01"
+
+# KV binding — verrà usato dalle Pages Functions
+# In produzione, crea il namespace KV nella dashboard Cloudflare
+# e collegalo al progetto Pages con il nome "PING_KV"
+
+[[kv_namespaces]]
+binding = "PING_KV"
+id = "dba64495856b4b9aab88800f2825d9aa"

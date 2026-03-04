@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Ping Checker</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+        }
+
+        .container {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 40px;
+            width: 460px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+
+        h1 { text-align: center; margin-bottom: 6px; font-size: 1.6rem; }
+        .subtitle { text-align: center; color: rgba(255,255,255,0.5); margin-bottom: 28px; font-size: 0.85rem; }
+
+        .status-card {
+            padding: 18px;
+            border-radius: 14px;
+            text-align: center;
+            margin-bottom: 24px;
+            font-size: 0.95rem;
+        }
+        .status-card.active {
+            background: rgba(255,165,2,0.15);
+            border: 1px solid rgba(255,165,2,0.3);
+        }
+        .status-card.inactive {
+            background: rgba(46,213,115,0.15);
+            border: 1px solid rgba(46,213,115,0.3);
+        }
+        .status-card .icon { font-size: 2rem; margin-bottom: 8px; }
+
+        label { display: block; margin-bottom: 8px; font-weight: 500; font-size: 0.9rem; }
+
+        .hours-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .hours-grid button {
+            padding: 12px 0;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 10px;
+            background: rgba(255,255,255,0.08);
+            color: #fff;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            width: 100%;
+            margin: 0;
+        }
+        .hours-grid button:hover {
+            background: rgba(108,99,255,0.3);
+            border-color: #6c63ff;
+            transform: translateY(-1px);
+        }
+        .hours-grid button.selected {
+            background: rgba(108,99,255,0.4);
+            border-color: #6c63ff;
+        }
+
+        .custom-hours {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .custom-hours input {
+            flex: 1;
+            padding: 10px 14px;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 10px;
+            background: rgba(255,255,255,0.08);
+            color: #fff;
+            font-size: 0.95rem;
+            outline: none;
+            text-align: center;
+        }
+        .custom-hours input:focus { border-color: #6c63ff; }
+        .custom-hours span { font-size: 0.85rem; color: rgba(255,255,255,0.6); }
+
+        .actions { display: flex; gap: 10px; }
+
+        .btn {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .btn:hover { transform: translateY(-2px); }
+        .btn:active { transform: translateY(0); }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+        .btn-block {
+            background: linear-gradient(135deg, #ffa502, #e67e22);
+            color: #fff;
+        }
+        .btn-block:hover { box-shadow: 0 4px 15px rgba(255,165,2,0.4); }
+
+        .btn-unblock {
+            background: linear-gradient(135deg, #2ed573, #1abc9c);
+            color: #fff;
+        }
+        .btn-unblock:hover { box-shadow: 0 4px 15px rgba(46,213,115,0.4); }
+
+        .back {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: rgba(255,255,255,0.5);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.2s;
+        }
+        .back:hover { color: #fff; }
+
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            padding: 14px 24px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            opacity: 0;
+            transition: all 0.4s ease;
+            z-index: 100;
+        }
+        .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+        .toast.success { background: rgba(46,213,115,0.9); color: #fff; }
+        .toast.error   { background: rgba(255,71,87,0.9);  color: #fff; }
+
+        .spinner {
+            display: inline-block;
+            width: 16px; height: 16px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 0.7s linear infinite;
+            vertical-align: middle;
+            margin-right: 6px;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 Pannello Admin</h1>
+        <p class="subtitle">Gestisci la disponibilità del ping checker</p>
+
+        <div id="statusCard" class="status-card inactive">
+            <div class="icon">⏳</div>
+            <div id="statusText">Caricamento...</div>
+        </div>
+
+        <label>Blocca per:</label>
+        <div class="hours-grid">
+            <button onclick="selectHours(1)">1h</button>
+            <button onclick="selectHours(2)">2h</button>
+            <button onclick="selectHours(4)">4h</button>
+            <button onclick="selectHours(8)">8h</button>
+        </div>
+
+        <div class="custom-hours">
+            <input type="number" id="customHours" min="1" max="720" placeholder="Personalizzato" oninput="selectHours(this.value)">
+            <span>ore</span>
+        </div>
+
+        <div class="actions">
+            <button class="btn btn-block" id="btnBlock" onclick="blocca()">🔒 Blocca</button>
+            <button class="btn btn-unblock" id="btnUnblock" onclick="sblocca()">🔓 Sblocca</button>
+        </div>
+
+        <a href="/" class="back">← Torna alla home</a>
+    </div>
+
+    <div id="toast" class="toast"></div>
+
+    <script>
+        let selectedHours = 1;
+
+        function selectHours(h) {
+            selectedHours = parseInt(h) || 1;
+            document.querySelectorAll('.hours-grid button').forEach(b => b.classList.remove('selected'));
+            const btns = document.querySelectorAll('.hours-grid button');
+            const presets = [1, 2, 4, 8];
+            const idx = presets.indexOf(selectedHours);
+            if (idx >= 0) btns[idx].classList.add('selected');
+        }
+
+        async function caricaStato() {
+            try {
+                const res = await fetch('/api/block');
+                const data = await res.json();
+                aggiornaCard(data);
+            } catch (e) {
+                document.getElementById('statusText').textContent = 'Errore nel caricamento';
+            }
+        }
+
+        function aggiornaCard(data) {
+            const card = document.getElementById('statusCard');
+            const text = document.getElementById('statusText');
+
+            if (data.active) {
+                card.className = 'status-card active';
+                const until = new Date(data.until);
+                const now = new Date();
+                const diffMs = until - now;
+                const diffH = Math.floor(diffMs / 3600000);
+                const diffM = Math.floor((diffMs % 3600000) / 60000);
+                card.querySelector('.icon').textContent = '🔒';
+                text.innerHTML = `Blocco <strong>ATTIVO</strong><br>
+                    <span style="font-size:0.85rem;opacity:0.7">
+                        Scade tra ${diffH}h ${diffM}m &mdash; ${until.toLocaleString('it-IT')}
+                    </span>`;
+            } else {
+                card.className = 'status-card inactive';
+                card.querySelector('.icon').textContent = '✅';
+                text.innerHTML = 'Nessun blocco attivo<br><span style="font-size:0.85rem;opacity:0.7">Le verifiche mostrano lo stato reale di Discord</span>';
+            }
+        }
+
+        async function blocca() {
+            const btn = document.getElementById('btnBlock');
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner"></span>Blocco...';
+
+            try {
+                const res = await fetch('/api/block', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ action: 'block', hours: selectedHours })
+                });
+                const data = await res.json();
+
+                if (data.success) {
+                    toast('success', `Blocco attivato per ${selectedHours}h`);
+                    aggiornaCard({ active: true, until: data.until });
+                } else {
+                    toast('error', data.error || 'Errore');
+                }
+            } catch (e) {
+                toast('error', 'Errore di connessione');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = '🔒 Blocca';
+            }
+        }
+
+        async function sblocca() {
+            const btn = document.getElementById('btnUnblock');
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner"></span>Sblocco...';
+
+            try {
+                const res = await fetch('/api/block', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ action: 'unblock' })
+                });
+                const data = await res.json();
+
+                if (data.success) {
+                    toast('success', 'Blocco rimosso');
+                    aggiornaCard({ active: false });
+                } else {
+                    toast('error', data.error || 'Errore');
+                }
+            } catch (e) {
+                toast('error', 'Errore di connessione');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = '🔓 Sblocca';
+            }
+        }
+
+        function toast(type, msg) {
+            const t = document.getElementById('toast');
+            t.className = `toast ${type}`;
+            t.textContent = msg;
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 3000);
+        }
+
+        // Seleziona 1h di default
+        selectHours(1);
+        // Carica stato attuale
+        caricaStato();
+    </script>
+</body>
+</html>

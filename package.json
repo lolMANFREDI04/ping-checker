@@ -1,0 +1,9 @@
+{
+  "name": "ping-checker",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "npx wrangler pages dev . --kv PING_KV --port 8080",
+    "deploy": "npx wrangler pages deploy . --project-name ping-checker"
+  }
+}

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ping Checker</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+        }
+
+        .container {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 40px;
+            width: 440px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+
+        h1 { text-align: center; margin-bottom: 6px; font-size: 1.8rem; }
+
+        .subtitle {
+            text-align: center;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 30px;
+            font-size: 0.85rem;
+        }
+
+        label { display: block; margin-bottom: 8px; font-weight: 500; }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 12px;
+            background: rgba(255,255,255,0.08);
+            color: #fff;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        input:focus { border-color: #6c63ff; }
+        input::placeholder { color: rgba(255,255,255,0.3); }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #6c63ff, #3f3d9e);
+            color: #fff;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        button:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(108,99,255,0.4); }
+        button:active { transform: translateY(0); }
+        button:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+        .result {
+            margin-top: 24px;
+            padding: 18px;
+            border-radius: 14px;
+            text-align: center;
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+        .result.online  { display: block; background: rgba(46,213,115,0.15); border: 1px solid rgba(46,213,115,0.3); }
+        .result.offline { display: block; background: rgba(255,71,87,0.15);  border: 1px solid rgba(255,71,87,0.3); }
+        .result.blocked { display: block; background: rgba(255,165,2,0.15);  border: 1px solid rgba(255,165,2,0.3); }
+        .result.error   { display: block; background: rgba(255,71,87,0.15);  border: 1px solid rgba(255,71,87,0.3); }
+        .result.loading { display: block; background: rgba(108,99,255,0.15); border: 1px solid rgba(108,99,255,0.3); }
+
+        .result .icon { font-size: 2.2rem; margin-bottom: 8px; }
+        .result .msg  { font-size: 0.95rem; line-height: 1.5; }
+
+        .status-dot {
+            display: inline-block;
+            width: 12px; height: 12px;
+            border-radius: 50%;
+            margin-right: 6px;
+            vertical-align: middle;
+        }
+        .dot-online  { background: #2ed573; box-shadow: 0 0 8px #2ed573; }
+        .dot-idle    { background: #ffa502; box-shadow: 0 0 8px #ffa502; }
+        .dot-dnd     { background: #ff4757; box-shadow: 0 0 8px #ff4757; }
+        .dot-offline { background: #636e72; }
+
+        .spinner {
+            display: inline-block;
+            width: 18px; height: 18px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 0.7s linear infinite;
+            vertical-align: middle;
+            margin-right: 8px;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .footer {
+            margin-top: 24px;
+            text-align: center;
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🖥️ Ping Checker</h1>
+        <p class="subtitle">Verifica se il PC è acceso</p>
+
+        <label for="nome">Inserisci il tuo nome</label>
+        <input type="text" id="nome" placeholder="Il tuo nome..." autocomplete="off" autofocus>
+
+        <button id="btn" onclick="verifica()">Verifica</button>
+
+        <div id="result" class="result"></div>
+
+        <div class="footer">Powered by Discord Presence</div>
+    </div>
+
+    <script>
+        const NOMI_AUTORIZZATI = ["marco", "giulia", "luca", "sara", "andrea", "elena"];
+        const ADMIN_KEY = "lool";
+
+        document.getElementById("nome").addEventListener("keydown", e => {
+            if (e.key === "Enter") verifica();
+        });
+
+        async function verifica() {
+            const input = document.getElementById("nome");
+            const btn = document.getElementById("btn");
+            const nome = input.value.trim();
+
+            if (!nome) {
+                mostra("error", "⚠️", "Inserisci un nome.");
+                return;
+            }
+
+            // Accesso admin
+            if (nome.toLowerCase() === ADMIN_KEY) {
+                window.location.href = "/admin.html";
+                return;
+            }
+
+            // Verifica nome autorizzato
+            if (!NOMI_AUTORIZZATI.includes(nome.toLowerCase())) {
+                mostra("error", "🚫", `<strong>${esc(nome)}</strong> non è un nome autorizzato.`);
+                return;
+            }
+
+            // Controlla stato
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner"></span>Controllo in corso...';
+            mostra("loading", "📡", "Verifico lo stato...");
+
+            try {
+                const res = await fetch(`/api/status?name=${encodeURIComponent(nome)}`);
+                const data = await res.json();
+
+                if (data.status === "blocked") {
+                    mostra("blocked", "🔒", data.message);
+                } else if (data.status === "online") {
+                    const statusLabel = {
+                        online: "Online",
+                        idle: "Inattivo",
+                        dnd: "Non disturbare"
+                    }[data.discord_status] || "Online";
+                    const dotClass = `dot-${data.discord_status || "online"}`;
+                    mostra("online", "✅",
+                        `Il PC è <strong>ACCESO</strong><br>
+                         <span class="status-dot ${dotClass}"></span>
+                         Discord: ${statusLabel}`);
+                } else if (data.status === "offline") {
+                    mostra("offline", "❌",
+                        `Il PC è <strong>SPENTO</strong> o non raggiungibile.<br>
+                         <span class="status-dot dot-offline"></span> Discord: Offline`);
+                } else {
+                    mostra("error", "💥", data.message || "Errore sconosciuto.");
+                }
+            } catch (err) {
+                mostra("error", "💥", `Errore di connessione: ${esc(err.message)}`);
+            } finally {
+                btn.disabled = false;
+                btn.textContent = "Verifica";
+            }
+        }
+
+        function mostra(tipo, icon, msg) {
+            const r = document.getElementById("result");
+            r.className = `result ${tipo}`;
+            r.innerHTML = `<div class="icon">${icon}</div><div class="msg">${msg}</div>`;
+        }
+
+        function esc(t) {
+            const d = document.createElement("div");
+            d.textContent = t;
+            return d.innerHTML;
+        }
+    </script>
+</body>
+</html>
