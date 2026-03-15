@@ -1,3 +1,9 @@
 node_modules/
 .wrangler/
 .dev.vars
+
+# Qwen3-TTS
+qwen3-tts/venv/
+qwen3-tts/voices/
+qwen3-tts/outputs/
+qwen3-tts/__pycache__/
