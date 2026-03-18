@@ -1,0 +1,16 @@
+{
+  "name": "Antonio",
+  "ref_audio_original": "D:\\Hardisk\\Desktop\\html\\html\\ping-checker\\qwen3-tts\\test1.wav",
+  "ref_text": "Oltre noi. Lo squadrone, a quanto ho capito, c'è eee... Ci saro pure, tipo Martina, Matilde. C'è pure Giulia Loiacono. Cioè pure Alberto, forse Calandrino eemm... Pure Alessandra. Eee... siamo un po' comunque, siamo un po.",
+  "x_vector_only_mode": false,
+  "icl_mode": true,
+  "ref_code_shape": [
+    326,
+    16
+  ],
+  "ref_spk_embedding_shape": [
+    2048
+  ],
+  "created_at": "2026-03-18 00:18:44",
+  "prompt_creation_time_s": 13.8
+}

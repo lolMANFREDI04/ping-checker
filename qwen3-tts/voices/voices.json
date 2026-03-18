@@ -1,0 +1,26 @@
+{
+  "Antonio": {
+    "audio_path": "voices\\Antonio\\reference.wav",
+    "ref_text": "Oltre noi. Lo squadrone, a quanto ho capito, c'è eee... Ci saro pure, tipo Martina, Matilde. C'è pure Giulia Loiacono. Cioè pure Alberto, forse Calandrino eemm... Pure Alessandra. Eee... siamo un po' comunque, siamo un po."
+  },
+  "Kevin": {
+    "audio_path": "voices\\Kevin\\reference.wav",
+    "ref_text": "Picciò mi ricordo una scena che queste sono le foto di un capodanno che lui ha fatto un festino, che l'hanno imbrogliato e che l'hanno fottuto. Gli hanno detto che  gli metteva 40 persone e ne sono spuntate tipo 90 100. Praticamenteee..., picciò arrivo io e in una stanza c'erano cinque ragazze morte nel letto. Ce ne dovevamo andare perché era successa tipooo... C'era una mezza sciarra, perché erano scomparsi due borselli che dicevano che erano veri e ovviamente erano quelli fasulli e praticamente c'erano queste femmine nel letto e fa uno comincia a sbattere nella porta e fa amuni amuni dobbiamo andare tutti fuori. Arriva un altro e fa ma ti pare che non me la fido a darici na boffa nu culo a sta pulla."
+  },
+  "Francesco": {
+    "audio_path": "voices\\Francesco\\reference.wav",
+    "ref_text": "vabbè niente ti devo raccontare una cosa praticamente è successa una cosa al lavoro che praticamente tipo stavamo parlando di cazzi e gli faccio io ah beh voi ce l'avete ce l'avete come ce l'avete corto io c'ho il più lungo infatti io ho il cazzo più lungo del mio gruppo eeeh poi tipo eh stavo parlando delle prenotazioni ah poi ti volevo dire che la prenotazione tua eh se l'è rubata cioè me la sono rubata io perché praticamente domani mi devo tagliare i capelli cioè domani mi devo tagliare i capelli quindi ehm se riesci un altro giorno a venire tu io me li taglio domani apposto tuo perché sono nella merda quindi tipo, non lo so tipo fai venerdì tu? io domani non lo so perché senno sono nei guai ciao suca."
+  },
+  "Domenico": {
+    "audio_path": "voices\\Domenico\\reference.wav",
+    "ref_text": "1 gennaio 2 gennaio 3 gennaio chiamata vocale 1 minuto chiamata vocale 1 minuto chiamata vocale 6 secondi 22 e 12 chiamata vocale di gruppo persa quattro invitati venerdì 6 marzo chiamata vocale persa tocca per richiamare 25-26 videochiamata 21 secondi videochiamata senza risposta videochiamata senza risposta videochiamata 28 secondi chiamata vocale 12 secondi chiamata vocale persa tocca per richiamare chiamata vocale persa tocca per richiamare chiamata vocale persa tocca per richiamare venerdì chiamata vocale 1 minuto chiamata vocale 1 minuto chiamata vocale 6 secondi"
+  },
+  "Domenico2": {
+    "audio_path": "voices\\Domenico2\\reference.wav",
+    "ref_text": "Manfre ho incontrato a Sanfilippo poco fa mi fa che domani sera esci con lui pure tu pure cioè pure Cormaci con voi eee.. Alberto, Gabriele uscite con delle picciotte che siete con la macchina ma dico domani sera siamo ad Alisia Gabriele mi fa che tu ieri sera gli hai detto di sì che uscite con la macchina voi dico domani sera siamo ad Alisia che fa non vieni."
+  },
+  "Alessandra": {
+    "audio_path": "voices\\Alessandra\\reference.wav",
+    "ref_text": "No ma infatti non non vado e amen cioè non è che posso fare miracoli io ci ho provato, mi sono impegnata. Poi per la prossima volta avrò. Meglio svolto tutto quindi sono più tranquilla. Capito? Però allo stesso tempo penso che domani con la cosa che mi sono fatta di inglese eee.. Domani interroga anche chimica quindi se mi interroga io non so niente perché ho studiato inglese non ho studiato chimica. Giustamente anche perché gli altri giorni ho avuto altre cose quindi dici ho avuto modo di anticiparmelo. No perché ho avuto altro nel frattempo da fare."
+  }
+}

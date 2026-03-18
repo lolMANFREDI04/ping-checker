@@ -1,0 +1,103 @@
+[
+  {
+    "voice": "Antonio",
+    "text_len": 24,
+    "language": "Italian",
+    "streaming": false,
+    "prompt_load_time_s": 0.0,
+    "generation_time_s": 38.0,
+    "audio_duration_s": 1.5,
+    "rtf": 24.97,
+    "timestamp": "2026-03-18 00:54:22",
+    "output_file": "Antonio_1773791662.wav"
+  },
+  {
+    "voice": "Antonio",
+    "text_len": 35,
+    "language": "Italian",
+    "streaming": true,
+    "prompt_load_time_s": 0.0,
+    "generation_time_s": 37.2,
+    "audio_duration_s": 2.5,
+    "rtf": 15.02,
+    "timestamp": "2026-03-18 00:55:27",
+    "output_file": "Antonio_1773791727.wav"
+  },
+  {
+    "voice": "Antonio",
+    "text_len": 35,
+    "language": "Italian",
+    "streaming": false,
+    "prompt_load_time_s": 0.0,
+    "generation_time_s": 36.9,
+    "audio_duration_s": 2.2,
+    "rtf": 16.46,
+    "timestamp": "2026-03-18 00:57:00",
+    "output_file": "Antonio_1773791820.wav"
+  },
+  {
+    "voice": "AntonioLow",
+    "model": "0.6B",
+    "text_len": 31,
+    "language": "Italian",
+    "streaming": false,
+    "prompt_load_time_s": 0.0,
+    "generation_time_s": 28.2,
+    "audio_duration_s": 2.4,
+    "rtf": 11.75,
+    "timestamp": "2026-03-18 01:08:40",
+    "output_file": "AntonioLow_1773792520.wav"
+  },
+  {
+    "voice": "AntonioLow",
+    "model": "0.6B",
+    "text_len": 32,
+    "language": "Italian",
+    "streaming": true,
+    "prompt_load_time_s": 0.0,
+    "generation_time_s": 21.5,
+    "audio_duration_s": 1.4,
+    "rtf": 14.92,
+    "timestamp": "2026-03-18 01:09:15",
+    "output_file": "AntonioLow_1773792554.wav"
+  },
+  {
+    "voice": "Antonio",
+    "model": "1.7B",
+    "text_len": 32,
+    "language": "Italian",
+    "streaming": false,
+    "prompt_load_time_s": 0.377,
+    "generation_time_s": 38.2,
+    "audio_duration_s": 1.8,
+    "rtf": 20.74,
+    "timestamp": "2026-03-18 01:19:34",
+    "output_file": "Antonio_1773793174.wav"
+  },
+  {
+    "voice": "AntonioLow",
+    "model": "0.6B",
+    "text_len": 32,
+    "language": "Italian",
+    "streaming": false,
+    "prompt_load_time_s": 0.226,
+    "generation_time_s": 38.5,
+    "audio_duration_s": 3.2,
+    "rtf": 12.05,
+    "timestamp": "2026-03-18 01:21:09",
+    "output_file": "AntonioLow_1773793269.wav"
+  },
+  {
+    "voice": "AntonioLow",
+    "model": "0.6B",
+    "text_len": 32,
+    "language": "Italian",
+    "streaming": true,
+    "prompt_load_time_s": 0.0,
+    "generation_time_s": 28.5,
+    "audio_duration_s": 2.6,
+    "rtf": 11.12,
+    "timestamp": "2026-03-18 01:22:04",
+    "output_file": "AntonioLow_1773793324.wav"
+  }
+]

@@ -1,0 +1,18 @@
+{
+  "name": "Antonio",
+  "ref_text": "Oltre noi... Lo squadrone, a quanto ho capito, c'è eee... eee. Ci sono pureee.., tipo \nMartina, Matilde. C'è pure Giulia Loiacono. Cioèè... pure Alberto, forse Calandrino eemm... Pure Alessandra. Eee... bo, siamo un po' comunque, siamo un po'.",
+  "audio_path": "voices\\Antonio\\reference.wav",
+  "x_vector_only_mode": false,
+  "icl_mode": true,
+  "ref_code_shape": [
+    326,
+    16
+  ],
+  "ref_spk_embedding_shape": [
+    2048
+  ],
+  "audio_duration_s": 26.1,
+  "audio_sample_rate": 48000,
+  "prompt_creation_time_s": 12.7,
+  "created_at": "2026-03-18 00:51:57"
+}
