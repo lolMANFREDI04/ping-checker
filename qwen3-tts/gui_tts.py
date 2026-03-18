@@ -590,6 +590,53 @@ def get_voice_details(name):
 
 
 # =============================================================================
+# REQUISITI MACCHINA
+# =============================================================================
+
+def check_requirements(model_choice):
+    try:
+        import psutil
+    except ImportError:
+        return "❌ Errore: la libreria 'psutil' non è installata. Puoi installarla aprendo un terminale e digitando 'pip install psutil'."
+        
+    ram_info = psutil.virtual_memory()
+    total_ram_gb = ram_info.total / (1024 ** 3)
+    available_ram_gb = ram_info.available / (1024 ** 3)
+    cpu_count = psutil.cpu_count(logical=True)
+    
+    if "1.7B" in model_choice:
+        min_ram = 8.0
+        rec_ram = 16.0
+        model_name = "1.7B"
+    else:
+        min_ram = 4.0
+        rec_ram = 8.0
+        model_name = "0.6B"
+
+    if total_ram_gb < min_ram:
+        status = "❌ INADEGUATA"
+        msg = f"La tua RAM totale ({total_ram_gb:.1f} GB) è inferiore al minimo richiesto ({min_ram} GB) per il modello {model_name}."
+    elif available_ram_gb < min_ram:
+        status = "⚠️ CRITICA"
+        msg = f"La tua RAM totale è sufficiente ({total_ram_gb:.1f} GB), ma quella libera ({available_ram_gb:.1f} GB) è inferiore al minimo ({min_ram} GB). Chiudi altri programmi e libera RAM."
+    elif total_ram_gb < rec_ram:
+        status = "⚠️ AL LIMITE"
+        msg = f"La tua RAM ({total_ram_gb:.1f} GB) soddisfa i requisiti minimi ma è sotto i raccomandati ({rec_ram} GB) per {model_name}."
+    else:
+        status = "✅ OTTIMA"
+        msg = f"La tua RAM ({total_ram_gb:.1f} GB) soddisfa i requisiti raccomandati per {model_name}."
+
+    report = (
+        f"📊 Verifica Requisiti per {model_name}:\n"
+        f"• CPU (Thread/Core logici): {cpu_count}\n"
+        f"• RAM Totale: {total_ram_gb:.1f} GB\n"
+        f"• RAM Libera (attuale): {available_ram_gb:.1f} GB\n\n"
+        f"Stato Macchina: {status}\n"
+        f"Diagnosi: {msg}"
+    )
+    return report
+
+# =============================================================================
 # INTERFACCIA GRADIO
 # =============================================================================
 
@@ -614,14 +661,17 @@ with gr.Blocks(
                 value=list(MODEL_CHOICES.keys())[0],
                 label="🧠 Seleziona Modello",
             )
+            check_req_btn = gr.Button("🔍 Verifica Requisiti Macchina")
         with gr.Column(scale=1):
             load_btn = gr.Button("📥 Carica Modello", variant="primary")
             model_status = gr.Textbox(
-                label="Stato modello",
+                label="Stato modello / Requisiti",
                 value="⏳ Modello non caricato. Seleziona un modello e premi il pulsante.",
                 interactive=False,
+                lines=5,
             )
             load_btn.click(fn=load_model, inputs=[model_selector], outputs=model_status)
+            check_req_btn.click(fn=check_requirements, inputs=[model_selector], outputs=model_status)
 
     gr.Markdown("---")
 

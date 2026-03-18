@@ -99,5 +99,18 @@
     "rtf": 11.12,
     "timestamp": "2026-03-18 01:22:04",
     "output_file": "AntonioLow_1773793324.wav"
+  },
+  {
+    "voice": "Antonio",
+    "model": "1.7B",
+    "text_len": 264,
+    "language": "Italian",
+    "streaming": false,
+    "prompt_load_time_s": 0.033,
+    "generation_time_s": 188.7,
+    "audio_duration_s": 15.6,
+    "rtf": 12.09,
+    "timestamp": "2026-03-18 18:08:10",
+    "output_file": "Antonio_1773853690.wav"
   }
 ]
