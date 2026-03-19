@@ -1,0 +1,19 @@
+{
+  "name": "Francesco",
+  "ref_text": "vabbè niente ti devo raccontare una cosa praticamente è successa una cosa al lavoro che praticamente tipo stavamo parlando di cazzi e gli faccio io ah beh voi ce l'avete ce l'avete come ce l'avete corto io c'ho il più lungo infatti io ho il cazzo più lungo del mio gruppo eeeh poi tipo eh stavo parlando delle prenotazioni ah poi ti volevo dire che la prenotazione tua eh se l'è rubata cioè me la sono rubata io perché praticamente domani mi devo tagliare i capelli cioè domani mi devo tagliare i capelli quindi ehm se riesci un altro giorno a venire tu io me li taglio domani apposto tuo perché sono nella merda quindi tipo, non lo so tipo fai venerdì tu? io domani non lo so perché senno sono nei guai ciao suca.",
+  "audio_path": "voices\\Francesco\\reference.wav",
+  "model": "1.7B",
+  "x_vector_only_mode": false,
+  "icl_mode": true,
+  "ref_code_shape": [
+    832,
+    16
+  ],
+  "ref_spk_embedding_shape": [
+    2048
+  ],
+  "audio_duration_s": 66.5,
+  "audio_sample_rate": 16000,
+  "prompt_creation_time_s": 28.9,
+  "created_at": "2026-03-19 11:11:45"
+}

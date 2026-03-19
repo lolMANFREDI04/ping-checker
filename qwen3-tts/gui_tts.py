@@ -642,7 +642,6 @@ def check_requirements(model_choice):
 
 with gr.Blocks(
     title="Qwen3-TTS Voice Clone",
-    theme=gr.themes.Soft(),
 ) as demo:
 
     gr.Markdown(
@@ -685,7 +684,7 @@ with gr.Blocks(
 
             with gr.Row():
                 with gr.Column():
-                    direct_audio = gr.Audio(label="🎤 Audio di riferimento (3+ secondi)", type="numpy")
+                    direct_audio = gr.Audio(label="🎤 Audio di riferimento (3+ secondi)", type="filepath")
                     direct_ref_text = gr.Textbox(
                         label="📝 Trascrizione audio (opzionale ma consigliata)",
                         placeholder="Cosa dice l'audio di riferimento...", lines=2,
@@ -719,7 +718,7 @@ with gr.Blocks(
                 with gr.Column():
                     gr.Markdown("### ➕ Aggiungi nuova voce")
                     voice_name_input = gr.Textbox(label="Nome voce", placeholder="es: Mario, Francesca...")
-                    voice_audio_input = gr.Audio(label="🎤 Audio di riferimento (3+ secondi)", type="numpy")
+                    voice_audio_input = gr.Audio(label="🎤 Audio di riferimento (3+ secondi)", type="filepath")
                     voice_ref_text_input = gr.Textbox(
                         label="📝 Trascrizione esatta dell'audio",
                         placeholder="Scrivi qui la trascrizione...", lines=3,
@@ -926,4 +925,4 @@ with gr.Blocks(
 
 
 if __name__ == "__main__":
-    demo.launch(server_name="127.0.0.1", server_port=7860)
+    demo.launch(server_name="127.0.0.1", server_port=7860, theme=gr.themes.Soft())
